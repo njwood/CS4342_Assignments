@@ -1,0 +1,72 @@
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!-- Create the place where the graph is to be rendered on the page -->
+<svg id="vis" style="margin-left: 50px; margin-top: 50px; margin-right: 50px"></svg>
+
+<script>
+    //console.log(d3);
+    
+    // Get the path of the CSV
+    d3.csv("cars-sample.csv", function(data) {
+
+         // Create the canvas
+        var svg = d3.select("#vis")
+        .attr('width', 800 + 100)
+        .attr('height', 800)
+        .append('g')
+        .attr('transform', 'translate(' + 50 + ',' + 50 + ')')
+
+        // Create the axis
+        var xAxis = d3.scaleLinear()
+        .domain([0, 5000])
+        .range([0,800])
+
+         // Create yAxis 
+         var yAxis = d3.scaleLinear()
+        .domain([0,50])
+        .range([400,0])
+
+        // Put Axis on the svg
+        svg.append('g')
+            .attr("transform", "translate(0," + 400 + ")")
+            .call(d3.axisBottom(xAxis).ticks(5))
+        
+        svg.append('g')
+            .call(d3.axisLeft(yAxis).ticks(5))
+
+        // Add labels
+        svg.append('text')
+        .attr("class", "y label")
+        .attr("x", -20)
+        .attr("y", -15)
+        .text("MPG")
+
+        svg.append('text')
+        .attr("class", "x label")
+        .attr("x", 400)
+        .attr("y", 450)
+        .text("Weight")
+
+        svg.append('text')
+        .attr("class", "title")
+        .attr("x", 400)
+        .attr("y", -15)
+        .text("Weight vs MPG")
+
+        //console.log(data.Weight)
+
+        // Place data
+
+        // yValues Setup
+        var yValues = function(d) { return d.MPG }
+        var yMap = function(d) { return (yAxis(yValues(d)))}
+        
+        // xValues Setup
+        var xValues = function(d) { return d.Weight }
+        var xMap = function(d) { return (xAxis(xValues(d)))}
+
+        
+
+    })
+
+</script>

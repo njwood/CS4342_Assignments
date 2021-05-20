@@ -1,0 +1,18 @@
+---
+title: "02-DataVis"
+output: html_document
+---
+
+```{r}
+
+#install.packages("ggplot2")
+
+# Load CSV
+carData <- read.csv(file = "cars-sample.csv")
+
+# Check if CSV loaded correctly
+# head(carData)
+
+ggplot(data=carData, aes(Weight, MPG, color=Manufacturer, size=Weight, alpha=5/10)) + geom_jitter()
+
+```
